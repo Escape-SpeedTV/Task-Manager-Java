@@ -15,7 +15,9 @@ public class Main {
             System.out.println("\n2 - Listar Tarefas");
             System.out.println("\n3 - Concluir Tarefas");
             System.out.println("\n4 - Remover Tarefas");
+            System.out.println("\n5 - Desmarcar Atividade como Concluída");
             System.out.println("\n0 - Sair");
+
 
             opcao = sc.nextInt();
             sc.nextLine();
@@ -43,6 +45,11 @@ public class Main {
                     System.out.print("Indice de Tarefas: ");
                     int iRemover = sc.nextInt();
                     gerenciar.removerTarefa(iRemover);
+
+                case 5:
+                    System.out.println("Indice de Tarefas: ");
+                    int iDesmarcar = sc.nextInt();
+                    gerenciar.desmarcarT(iDesmarcar);
 
                 case 0:
                     System.out.println("Saindo...");

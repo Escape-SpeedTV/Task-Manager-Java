@@ -11,6 +11,10 @@ public class tarefa {
         this.concluida = true;
     }
 
+    public void desmarcarAtividade(){
+        this.concluida = false;
+    }
+
     @Override
     public String toString(){
         return (concluida ? "[✔] " : "[ ] ") + descricao;

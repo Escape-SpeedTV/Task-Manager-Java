@@ -1,2 +1,2 @@
-Estudar Java;false
+Estudar Java;true
 Estudar Python;false
