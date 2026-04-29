@@ -16,7 +16,7 @@ public class gerenciarTarefas {
                 System.out.println("Nenhuma tarefa cadastrada.");
                 return;
             }
-            for (int i = 1; i < tarefas.size(); i++){
+            for (int i = 0; i < tarefas.size(); i++){
                 System.out.println(i + " - " + tarefas.get(i));
             }
         }
@@ -34,6 +34,14 @@ public class gerenciarTarefas {
                 tarefas.remove(index);
             }else{
                 System.out.println("índice inválido.");
+            }
+        }
+
+        public void desmarcarT(int index){
+            if(index >= 0 && index < tarefas.size()){
+                tarefas.get(index).desmarcarAtividade();
+            }else{
+                System.out.println("índice inválido");
             }
         }
 

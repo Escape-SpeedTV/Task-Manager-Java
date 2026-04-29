@@ -8,6 +8,7 @@ public class tela {
         gerenciarTarefas gerenciador = new gerenciarTarefas();
         gerenciador.carregarTarefas();
 
+
         JFrame frame = new JFrame("Gerenciador de Tarefas");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,14 +18,17 @@ public class tela {
         campoIndice.setBounds(50, 340, 50, 30);
         frame.add(campoIndice);
 
+
         JButton botaoConcluir = new JButton("Concluir");
         botaoConcluir.setBounds(110, 340, 100, 30);
-
         frame.add(botaoConcluir);
-
 
         JTextField campo = new JTextField();
         campo.setBounds(50, 30, 200, 30);
+
+        JButton desmarcar = new JButton("Desmarcar");
+        desmarcar.setBounds(330, 340, 100, 30);
+        frame.add(desmarcar);
 
         JButton botao = new JButton("Adicionar");
         botao.setBounds(260, 30, 100, 30);
@@ -40,6 +44,17 @@ public class tela {
                 gerenciador.salvarTarefas();
             }catch (Exception ex){
                 JOptionPane.showMessageDialog(null, "Indice inválido!");
+            }
+        });
+
+        desmarcar.addActionListener(e -> {
+            try {
+                int index = Integer.parseInt(campoIndice.getText());
+                gerenciador.desmarcarT(index);
+                atualizarArea(area, gerenciador);
+                gerenciador.salvarTarefas();
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(null, "Indice Inválido!");
             }
         });
 
