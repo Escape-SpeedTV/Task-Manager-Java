@@ -1,108 +1,52 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class tela {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         gerenciarTarefas gerenciador = new gerenciarTarefas();
         gerenciador.carregarTarefas();
 
 
-        JFrame frame = new JFrame("Gerenciador de Tarefas");
-        frame.setSize(400, 400);
+        JFrame frame = new JFrame("📝 Gerenciador de Tarefas");
+        frame.setSize(450, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
 
-        JTextField campoIndice = new JTextField();
-        campoIndice.setBounds(50, 340, 50, 30);
-        frame.add(campoIndice);
+        //Painel Superior
 
+        JPanel painelTopo = new JPanel(new FlowLayout());
+        JTextField campo = new JTextField(20);
+        JButton BotaoAdicionar = new JButton("Adicionar");
+        painelTopo.add(new JLabel("Tarefa"));
+        painelTopo.add(campo);
+        painelTopo.add(BotaoAdicionar);
+        frame.add(painelTopo, BorderLayout.NORTH);
 
-        JButton botaoConcluir = new JButton("Concluir");
-        botaoConcluir.setBounds(110, 340, 100, 30);
-        frame.add(botaoConcluir);
-
-        JTextField campo = new JTextField();
-        campo.setBounds(50, 30, 200, 30);
-
-        JButton desmarcar = new JButton("Desmarcar");
-        desmarcar.setBounds(330, 340, 100, 30);
-        frame.add(desmarcar);
-
-        JButton botao = new JButton("Adicionar");
-        botao.setBounds(260, 30, 100, 30);
+        //Painel Central
 
         JTextArea area = new JTextArea();
-        area.setBounds(50, 80, 310, 250);
-        botaoConcluir.addActionListener(e -> {
-            try{
-                int index = Integer.parseInt(campoIndice.getText());
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+        frame.add(scroll, BorderLayout.CENTER);
 
-                gerenciador.concluirTarefa(index);
-                atualizarArea(area, gerenciador);
-                gerenciador.salvarTarefas();
-            }catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Indice inválido!");
-            }
-        });
+        //Painel Inferior
 
-        desmarcar.addActionListener(e -> {
-            try {
-                int index = Integer.parseInt(campoIndice.getText());
-                gerenciador.desmarcarT(index);
-                atualizarArea(area, gerenciador);
-                gerenciador.salvarTarefas();
-            }catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Indice Inválido!");
-            }
-        });
-
+        JPanel painelBaixo = new JPanel(new FlowLayout());
+        JTextField campoIndice = new JTextField(5);
+        JButton botaoConcluir = new JButton("Concluir");
         JButton botaoRemover = new JButton("Remover");
-        botaoRemover.setBounds(220, 340, 100, 30);
-        frame.add(botaoRemover);
+        JButton botaoDesmarcar = new JButton("Desmarcar");
+        painelBaixo.add(new JLabel("Índice: "));
+        painelBaixo.add(campoIndice);
+        painelBaixo.add(botaoConcluir);
+        painelBaixo.add(botaoRemover);
+        painelBaixo.add(botaoDesmarcar);
 
-        botaoRemover.addActionListener(e ->{
-            try {
-                int index = Integer.parseInt(campoIndice.getText());
-                gerenciador.removerTarefa(index);
-                atualizarArea(area, gerenciador);
-                gerenciador.salvarTarefas();
-            }catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Índice inválido!");
-            }
-        });
+        frame.add(painelBaixo, BorderLayout.SOUTH);
 
-        frame.add(campo);
-        frame.add(botao);
-        frame.add(area);
-
-        botao.addActionListener(e -> {
-            String texto = campo.getText();
-
-            if (!texto.isEmpty()){
-                gerenciador.adicionarTarefa(texto);
-
-                atualizarArea(area, gerenciador);
-
-                campo.setText("");
-
-            }
-        });
-
-        atualizarArea(area, gerenciador);
-
-        frame.setVisible(true);
-
-
+        //Painel Action
     }
-
-    public static void atualizarArea(JTextArea area, gerenciarTarefas gerenciador) {
-        area.setText("");
-
-        for (int i = 0; i < gerenciador.tarefas.size(); i++) {
-            area.append(i + " - " + gerenciador.tarefas.get(i) + "\n");
-        }
-    }
-
 }
